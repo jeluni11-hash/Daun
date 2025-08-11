@@ -1,0 +1,175 @@
+-- Delta Roblox Teleport Exploit Script with GUI
+-- Auto teleport to Camp1, Camp2, Camp3, Camp4, or Submit coordinates
+-- GUI has minimize (hide/show with RightControl key), Start buttons for each camp, and Stop button
+
+local player = game.Players.LocalPlayer
+local UIS = game:GetService("UserInputService")
+
+-- Define camp coordinates
+local camp1 = {
+    Vector3.new(-524.1, 58.6, -163.9),
+    Vector3.new(-622.9, 250.2, -382.7)
+}
+
+local camp2 = {
+    Vector3.new(-1083.9, 254.6, -523.5),
+    Vector3.new(-1203.2, 261.6, -487.1)
+}
+
+local camp3 = {
+    Vector3.new(-1384.3, 399.0, -711.1),
+    Vector3.new(-1399.4, 578.3, -951.9)
+}
+
+local camp4 = {
+    Vector3.new(-1635.5, 672.7, -1213.5),
+    Vector3.new(-1700.6, 816.5, -1399.6)
+}
+
+local submit = {
+    Vector3.new(-2445.9, 1133.2, -1939.4),
+    Vector3.new(-3230.1, 1713.6, -2592.7)
+}
+
+local auto = false
+local currentCamp = nil
+
+-- Function for auto teleport loop
+local function autoTeleport()
+    while auto do
+        for _, pos in ipairs(currentCamp) do
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
+            end
+            wait(0.5)  -- Adjust delay as needed to avoid detection or for farming speed
+        end
+    end
+end
+
+-- Create GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.CoreGui  -- Use CoreGui for exploit visibility
+screenGui.Name = "TeleportGUI"
+
+local frame = Instance.new("Frame")
+frame.Parent = screenGui
+frame.Size = UDim2.new(0, 200, 0, 280)
+frame.Position = UDim2.new(0.5, -100, 0.5, -140)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true  -- Make frame draggable
+
+-- Title label
+local title = Instance.new("TextLabel")
+title.Parent = frame
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+title.Text = "Teleport Exploit"
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 18
+
+-- Minimize button (actually hides the frame, toggle with RightControl)
+local minBtn = Instance.new("TextButton")
+minBtn.Parent = title
+minBtn.Size = UDim2.new(0, 30, 0, 30)
+minBtn.Position = UDim2.new(1, -30, 0, 0)
+minBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+minBtn.Text = "-"
+minBtn.TextColor3 = Color3.new(1, 1, 1)
+minBtn.MouseButton1Click:Connect(function()
+    frame.Visible = false
+end)
+
+-- Start Camp1 button
+local startCamp1 = Instance.new("TextButton")
+startCamp1.Parent = frame
+startCamp1.Size = UDim2.new(1, 0, 0, 40)
+startCamp1.Position = UDim2.new(0, 0, 0, 30)
+startCamp1.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+startCamp1.Text = "Start Camp1"
+startCamp1.TextColor3 = Color3.new(1, 1, 1)
+startCamp1.MouseButton1Click:Connect(function()
+    auto = true
+    currentCamp = camp1
+    spawn(autoTeleport)
+end)
+
+-- Start Camp2 button
+local startCamp2 = Instance.new("TextButton")
+startCamp2.Parent = frame
+startCamp2.Size = UDim2.new(1, 0, 0, 40)
+startCamp2.Position = UDim2.new(0, 0, 0, 70)
+startCamp2.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+startCamp2.Text = "Start Camp2"
+startCamp2.TextColor3 = Color3.new(1, 1, 1)
+startCamp2.MouseButton1Click:Connect(function()
+    auto = true
+    currentCamp = camp2
+    spawn(autoTeleport)
+end)
+
+-- Start Camp3 button
+local startCamp3 = Instance.new("TextButton")
+startCamp3.Parent = frame
+startCamp3.Size = UDim2.new(1, 0, 0, 40)
+startCamp3.Position = UDim2.new(0, 0, 0, 110)
+startCamp3.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+startCamp3.Text = "Start Camp3"
+startCamp3.TextColor3 = Color3.new(1, 1, 1)
+startCamp3.MouseButton1Click:Connect(function()
+    auto = true
+    currentCamp = camp3
+    spawn(autoTeleport)
+end)
+
+-- Start Camp4 button
+local startCamp4 = Instance.new("TextButton")
+startCamp4.Parent = frame
+startCamp4.Size = UDim2.new(1, 0, 0, 40)
+startCamp4.Position = UDim2.new(0, 0, 0, 150)
+startCamp4.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+startCamp4.Text = "Start Camp4"
+startCamp4.TextColor3 = Color3.new(1, 1, 1)
+startCamp4.MouseButton1Click:Connect(function()
+    auto = true
+    currentCamp = camp4
+    spawn(autoTeleport)
+end)
+
+-- Start Submit button
+local startSubmit = Instance.new("TextButton")
+startSubmit.Parent = frame
+startSubmit.Size = UDim2.new(1, 0, 0, 40)
+startSubmit.Position = UDim2.new(0, 0, 0, 190)
+startSubmit.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+startSubmit.Text = "Start Submit"
+startSubmit.TextColor3 = Color3.new(1, 1, 1)
+startSubmit.MouseButton1Click:Connect(function()
+    auto = true
+    currentCamp = submit
+    spawn(autoTeleport)
+end)
+
+-- Stop button
+local stopBtn = Instance.new("TextButton")
+stopBtn.Parent = frame
+stopBtn.Size = UDim2.new(1, 0, 0, 40)
+stopBtn.Position = UDim2.new(0, 0, 0, 230)
+stopBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+stopBtn.Text = "Stop"
+stopBtn.TextColor3 = Color3.new(1, 1, 1)
+stopBtn.MouseButton1Click:Connect(function()
+    auto = false
+end)
+
+-- Toggle GUI visibility with RightControl key (for "minimize" restore)
+UIS.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.RightControl then
+        frame.Visible = not frame.Visible
+    end
+end)
+
+-- Initial visibility
+frame.Visible = true
